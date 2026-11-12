@@ -1,7 +1,7 @@
 # October 2026 lab validation record
 
 **Scope:** Private, isolated Microsoft Hyper-V / OPNsense training environment.  
-**Status:** Owner-recorded tests from 26 and 30 October 2026, supported by dated local screenshots and notes. **The October screenshots and firewall configuration are not published in this repository.** This document is a test record, not an independently reproduced verification report or an OT/ICS certification.
+**Status:** Owner-recorded tests from 26 and 30 October 2026, supported by dated screenshots and notes. **Six cropped October evidence screenshots are now public** in the [screenshot index](../screenshots/october-2026/README.md); other original images and the firewall configuration are not published. This document is a test record, not an independently reproduced verification report or an OT/ICS certification.
 
 ## Tested topology
 
@@ -57,16 +57,18 @@ After the TCP rule was disabled, an OPNsense configuration export was saved with
 
 This establishes a matching **off-VM copy**, not verified encryption, a separate physical-media backup, successful decryption or configuration restoration. The configuration file itself is **not** published because firewall exports may contain confidential settings and secrets.
 
-## Existing public evidence vs local evidence
+## Published October evidence and remaining local evidence
 
-The repository's `screenshots/` directory currently contains September screenshots of the architecture, rules and early tests. Those are historical, and are **not** a public copy of the 26/30 October proof.
+The repository's top-level `screenshots/` directory contains September screenshots of the architecture, rules and early tests. The six cropped October screenshots are now available in [screenshots/october-2026/](../screenshots/october-2026/README.md). They represent the October source files listed below, **not** the September results.
 
 The dated local evidence index includes:
 
 - 26 October: `Screenshot 2026-10-26 183715.png` (reverse ICMP timeouts), `184349.png` (named OTDMZ block log), `185335.png` (forward ICMP replies), `185457.png` (named LAN allow log).
 - 30 October: `Screenshot 2026-10-30 171129.png` (initial TCP failure), `172401.png` (LAN ingress block), `182849.png` (successful TCP result), `183730.png` (matching pass logs), `184929.png` (test rule disabled), `201523.png` (matching copy hashes).
 
-These filenames identify evidence retained in the owner's private project records; **the files have not been uploaded here**. Before publication, inspect each for personal data, login identifiers, configuration secrets and unrelated windows, and redact appropriately. Do not fabricate or replace original results.
+**Published crops:** [forward ICMP replies](../screenshots/october-2026/01-icmp-control-to-dmz-4-replies%5B1%5D.png), [reverse ICMP firewall blocks](../screenshots/october-2026/02-icmp-dmz-to-control-firewall-blocks%5B1%5D.png), [initial TCP/8443 blocks](../screenshots/october-2026/03-tcp-8443-before-allow-firewall-blocks%5B1%5D.png), [successful TCP/8443 endpoint test](../screenshots/october-2026/04-tcp-8443-client-test-success%5B1%5D.png), [TCP/8443 block/pass firewall logs](../screenshots/october-2026/05-tcp-8443-block-and-allow-logs%5B1%5D.png), and [matching export-copy hashes](../screenshots/october-2026/06-config-copy-size-and-sha256-match%5B1%5D.png).
+
+Other screenshot files in the evidence index above remain in the owner's private project records, **not uploaded**. The six published files are cropped extracts; the original evidence and results were not fabricated or changed. Review any further proposed images for account identifiers, credentials, configuration secrets and unrelated content before publication.
 
 ## Not yet demonstrated
 
