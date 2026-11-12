@@ -2,7 +2,7 @@
 
 An isolated, OT-inspired virtual networking lab using OPNsense and Microsoft Hyper-V to investigate firewall policy, traffic restrictions and reproducible test evidence. No production OT systems or industrial control devices were used.
 
-**Latest documented tests:** [26–30 October 2026 validation record](docs/validation-2026-10.md). The screenshots currently in this repository depict the *earlier September lab*. October evidence is recorded separately, with the original screenshots held privately pending review and redaction.
+**Latest documented tests:** [26–30 October 2026 validation record](docs/validation-2026-10.md), with [six cropped October evidence screenshots](screenshots/october-2026/README.md) now published. Earlier September screenshots remain available separately; the original full-size October images and firewall configuration export remain private.
 
 ## Project Objective
 
@@ -97,7 +97,7 @@ The 26 October lab tests used **CLIENT01 (`10.10.10.11`)** and **OT-DMZ01 (`10.1
 
 On 30 October, a temporary TCP listener on the DMZ host at port **8443** was initially unreachable from CLIENT01 and then reachable after a source/destination/port-restricted OPNsense allowance. The rule was subsequently disabled; no independent post-cleanup connection test was captured. A separate OPNsense configuration export was copied from the guest to the physical host and **SHA-256 compared equal**. No restore test or decryption check was completed.
 
-See the [October test matrix, conditions, log attribution and limitations](docs/validation-2026-10.md). The October raw screenshots and firewall export are **not public**.
+See the [October test matrix, conditions, log attribution and limitations](docs/validation-2026-10.md) and [six published screenshot extracts](screenshots/october-2026/README.md). The original full-size October screenshots and firewall export are **not public**.
 
 ## Security Concepts Demonstrated
 
