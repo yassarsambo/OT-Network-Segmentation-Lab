@@ -1,6 +1,8 @@
 # OT Network Segmentation & Firewall Lab
 
-A hands-on Operational Technology (OT) cybersecurity lab demonstrating network segmentation, firewall policy enforcement, controlled communication between security zones, and traffic validation using OPNsense and Microsoft Hyper-V.
+An isolated, OT-inspired virtual networking lab using OPNsense and Microsoft Hyper-V to investigate firewall policy, traffic restrictions and reproducible test evidence. No production OT systems or industrial control devices were used.
+
+**Latest documented tests:** [26–30 October 2026 validation record](docs/validation-2026-10.md). The screenshots currently in this repository depict the *earlier September lab*. October evidence is recorded separately, with the original screenshots held privately pending review and redaction.
 
 ## Project Objective
 
@@ -28,7 +30,8 @@ The environment was built using Microsoft Hyper-V and OPNsense.
 ### Key Systems
 
 - **OT-FW01** — OPNsense firewall
-- **OT-HMI01** — Windows-based simulated HMI/control asset
+- **OT-HMI01** — Windows test host representing a control-zone asset (not a functioning industrial HMI); used in the earlier screenshots
+- **CLIENT01** — Windows 11 test client (`10.10.10.11`) used in the October validation
 - **OT-DMZ01** — Windows host located within the OT DMZ
 - **Hyper-V Virtual Switches** — Provide isolated virtual network segments
 
@@ -40,7 +43,7 @@ The diagram below shows the segmented lab architecture, with OPNsense enforcing 
 ![OT Network Architecture and Validation](screenshots/00-ot-network-architecture-and-validation%5B1%5D.png)
 ## Firewall Policy
 
-A controlled asymmetric communication policy was implemented.
+An asymmetric IPv4 policy was configured and evaluated for specific ICMP and TCP tests. It has **not** been established that all protocols and hosts are correctly isolated. An enabled broad IPv6 LAN allowance requires further review.
 ### Implemented Firewall Rules
 
 The OPNsense firewall was configured to enforce controlled communication between the OT Control and OT DMZ security zones.
@@ -60,11 +63,11 @@ Firewall logging was enabled so denied traffic could be observed and investigate
 
 Connectivity testing from **OT-DMZ01 (10.10.20.100)** to **OT-HMI01 (10.10.10.50)** confirmed that the firewall prevented unauthorised communication from the DMZ into the OT Control network.
 
-Both ICMP and TCP/445 connectivity were denied as expected.
+The September screenshots show blocked ICMP and a historical TCP/445 connectivity attempt. A TCP/445 listener and all relevant host-firewall conditions have not been independently reconciled, so this is not presented as a conclusive validated service-level TCP/445 block.
 
 ![DMZ to OT Control TCP 445 Blocked](screenshots/02-dmz-to-control-tcp445-blocked%5B1%5D.png)
 
-The OPNsense firewall logs confirmed that the blocked traffic matched the configured **Block OTDMZ to OT Control** policy.
+The accompanying historical firewall screenshots show denied packets under the **Block OTDMZ to OT Control** policy. The detailed October results and their named ingress-rule correlation are recorded [separately](docs/validation-2026-10.md).
 
 ![Firewall Log - DMZ to OT Control Blocked](screenshots/03-firewall-log-dmz-to-control-blocked%5B1%5D.png)
 
@@ -88,20 +91,28 @@ The OPNsense firewall logs confirmed that the traffic matched the configured all
 
 ![Firewall Log - OT Control to DMZ Pass](screenshots/05-firewall-log-control-to-dmz-pass%5B1%5D.png)
 
+## October validation highlights
+
+The 26 October lab tests used **CLIENT01 (`10.10.10.11`)** and **OT-DMZ01 (`10.10.20.100`)**, which differ from the earlier screenshots showing `OT-HMI01` (`10.10.10.50`). They recorded four successful forward IPv4 ICMP replies, four denied new reverse-direction ICMP requests, and correlating named ingress-firewall logs.
+
+On 30 October, a temporary TCP listener on the DMZ host at port **8443** was initially unreachable from CLIENT01 and then reachable after a source/destination/port-restricted OPNsense allowance. The rule was subsequently disabled; no independent post-cleanup connection test was captured. A separate OPNsense configuration export was copied from the guest to the physical host and **SHA-256 compared equal**. No restore test or decryption check was completed.
+
+See the [October test matrix, conditions, log attribution and limitations](docs/validation-2026-10.md). The October raw screenshots and firewall export are **not public**.
+
 ## Security Concepts Demonstrated
 
 This project demonstrates practical understanding of:
 
-- OT/ICS network segmentation
+- OT/ICS-inspired network segmentation in an isolated simulation
 - Security zones and conduits
 - Firewall rule configuration
 - Source and destination network policies
 - Least-privilege communication
-- Default-deny security principles
+- Default-deny policy investigation for tested flows (not a verified complete default-deny posture)
 - ICMP and TCP traffic testing
 - Firewall log analysis
 - Network troubleshooting
-- OT DMZ architecture
+- OT DMZ-inspired virtual network architecture
 - Hyper-V virtual networking
 - OPNsense firewall administration
 
@@ -114,6 +125,10 @@ This project demonstrates practical understanding of:
 - TCP/IP
 - ICMP
 - Virtual network switches
+
+## Verified scope and gaps
+
+This lab does not currently demonstrate real ICS hardware, production HMI/SCADA services, OT protocols (such as Modbus, DNP3 or OPC UA), reverse TCP blocking, comprehensive UDP or IPv6 isolation, successful recovery from backup, or independent adoption. A firewall export could contain secrets and will not be made public. For reproducibility, the current repository provides a topology, historical screenshots and the October test record, **not** a distributable working configuration or complete automated test harness.
 
 ## Next Development
 
@@ -131,4 +146,4 @@ Future development of the lab will include:
 
 This project was developed as part of my practical OT cybersecurity portfolio to complement my MSc Cyber Security and hands-on exposure to Operational Technology environments.
 
-It demonstrates my ability to design, configure, test and validate security controls within a simulated OT network.
+It documents my configuration and verification of selected controls within a simulated OT network. The tests and unverified areas are described explicitly; no production deployment, blanket segmentation assurance, novel security discovery or independent recognition is claimed.
