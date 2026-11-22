@@ -2,7 +2,9 @@
 
 An isolated, OT-inspired virtual networking lab using OPNsense and Microsoft Hyper-V to investigate firewall policy, traffic restrictions and reproducible test evidence. No production OT systems or industrial control devices were used.
 
-**Latest documented tests:** [26–30 October 2026 validation record](docs/validation-2026-10.md), with [six cropped October evidence screenshots](screenshots/october-2026/README.md) now published. Earlier September screenshots remain available separately; the original full-size October images and firewall configuration export remain private.
+**October segmentation tests.** [26–30 October 2026 validation record](docs/validation-2026-10.md), with [six cropped October evidence screenshots](screenshots/october-2026/README.md) now published. Earlier September screenshots remain available separately; the original full-size October images and firewall configuration export remain private.
+
+**22 November 2026 lab extension.** An [Ignition simulator observation](docs/ignition-simulator-observation-2026-11-22.md) records two samples displaying GOOD quality, associated with owner-reported disabled and enabled device states. It includes the original images, evidence attribution and follow-up checks for update behaviour.
 
 ## Project Objective
 
@@ -122,13 +124,14 @@ This project demonstrates practical understanding of:
 - Microsoft Hyper-V
 - Windows 11
 - PowerShell
+- Ignition Standard 8.3.10 and its embedded OPC UA server/client
 - TCP/IP
 - ICMP
 - Virtual network switches
 
 ## Verified scope and gaps
 
-This lab does not currently demonstrate real ICS hardware, production HMI/SCADA services, OT protocols (such as Modbus, DNP3 or OPC UA), reverse TCP blocking, comprehensive UDP or IPv6 isolation, successful recovery from backup, or independent adoption. A firewall export could contain secrets and will not be made public. For reproducibility, the current repository provides a topology, historical screenshots and the October test record, **not** a distributable working configuration or complete automated test harness.
+This lab does not currently demonstrate real ICS hardware, production HMI/SCADA services, inter-zone OT protocol traffic (such as Modbus, DNP3 or OPC UA), reverse TCP blocking, comprehensive UDP or IPv6 isolation, successful recovery from backup, or independent adoption. A firewall export could contain secrets and will not be made public. For reproducibility, the current repository provides a topology, historical screenshots and the October test record, **not** a distributable working configuration or complete automated test harness.
 
 ## Next Development
 
